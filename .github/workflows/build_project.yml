@@ -1,0 +1,21 @@
+name: Build  before merging
+
+on: pull_request
+
+jobs:
+  build_before_merging:
+    runs-on: ubuntu-16.04
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Run tests
+        run: ./gradlew  test
+
+      - name: Build project
+        run: ./gradlew assemble
