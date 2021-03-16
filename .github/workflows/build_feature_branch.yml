@@ -1,0 +1,35 @@
+name: Build Feature Branch
+
+on:
+  push:
+    branches: 'feature/**'
+
+jobs:
+  test_job:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Restore Cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Assemble
+        run: ./gradlew assembleDebug
+
+      - name: Upload to Firebase App Distribution
+          uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+          with:
+            appId: ${{ secrets.FIREBASE_APP_ID }}
+            token: ${{ secrets.FIREBASE_TOKEN }}
+            groups: qa
+            file: app/build/outputs/apk/debug/app-debug.apk
