@@ -1,0 +1,21 @@
+name: Pull request notifying
+
+on: pull_request
+
+jobs:
+  notify:
+    runs-on: ubuntu-16.04
+    timeout-minutes: 1
+    steps:
+      - name: chatwork-actions
+        description: "Send a message to the chatwork when an issue or comment is created or edited"
+        uses: mechiru/chatwork@v1.0.1
+        with:
+          roomId: 217522535
+          token: ${{ secrets.CHATWORK_API_TOKEN }}
+          mapping: |
+            {
+              "canhtv-0838": "[To:3619895]Tran Van Canh (97)"
+            }
+          context: ${{ toJson(github) }}
+
