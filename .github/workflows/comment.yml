@@ -5,7 +5,7 @@ on:
 jobs:
   assignCanh:
     name: Comment on issue
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Label issue

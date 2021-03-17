@@ -6,7 +6,7 @@ on:
 
 jobs:
   notifying:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - name: Open Pull Requests Chatwork Notifier
         uses: KeisukeKudo/open_pull-request_chatwork_notifier@v1
